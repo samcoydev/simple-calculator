@@ -9,7 +9,7 @@
   }
 
   .calculator-screen {
-    width: 100%;
+    width: 92.5%;
     font-size: 5rem;
     height: 80px;
     border: none;
@@ -28,7 +28,6 @@
     background-color: transparent;
     font-size: 2rem;
     color: #333;
-    background-image: linear-gradient(to bottom,transparent,transparent 50%,rgba(0,0,0,.04));
     box-shadow: inset 0 0 0 1px rgba(255,255,255,.05), inset 0 1px 0 0 rgba(255,255,255,.45), inset 0 -1px 0 0 rgba(255,255,255,.15), 0 1px 0 0 rgba(255,255,255,.15);
     text-shadow: 0 1px rgba(255,255,255,.4);
   }
@@ -43,7 +42,6 @@
 
   .all-clear {
     background-color: #f0595f;
-    border-color: #b0353a;
     color: #fff;
   }
 
@@ -53,7 +51,6 @@
 
   .equal-sign {
     background-color: #2e86c0;
-    border-color: #337cac;
     color: #fff;
     height: 100%;
     grid-area: 2 / 4 / 6 / 5;
