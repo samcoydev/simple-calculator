@@ -10,15 +10,21 @@ export class DisplayComponent implements OnInit {
 
   currentNumber = '0';
   currentEquation;
+
   firstNum = '0';
   secondNum = '';
   currentOp = '';
+
   firstOperand = null;
   operator = null;
   waitForSecondNumber = false;
 
+  // Create a function to determine if currentOp is being used or not.
+  // Then we can make a function that switches which number variable you're using
+  // by stopping the number when an operation is selected.
+
+  // Called anytime a number button is pressed.
   public getNumber(v: string){
-    //v is value
     console.log(v);
 
     if(this.waitForSecondNumber)
@@ -28,10 +34,43 @@ export class DisplayComponent implements OnInit {
       this.secondNum = String(v);
     }else{
       this.currentNumber === '0'? this.currentNumber = v: this.currentNumber += v;
-      this.firstNum = v;
+      this.firstNum = this.currentNumber;
     }
 
     this.updateEquation();
+  }
+
+  // Called anytime a = - * % button is pressed.
+  public getOperation(op: string){
+    if (op != '=') {
+      this.currentOp = op;
+      this.updateEquation();
+    }
+
+    if(this.firstOperand === null){
+      this.firstOperand = Number(this.currentNumber);
+
+    }else if(this.operator){
+      const result = this.doCalculation(this.operator , Number(this.currentNumber))
+      this.currentNumber = String(result);
+      this.firstOperand = result;
+      this.firstNum = result;
+      this.secondNum = ' ';
+      this.currentEquation = result;
+    }
+    this.operator = op;
+    this.waitForSecondNumber = true;
+  } 
+  
+  public updateEquation() {
+    if (this.firstNum == null) {
+      this.currentEquation = '0';
+    } else {
+      this.currentEquation = this.firstNum + this.currentOp + this.secondNum;
+    }
+
+    console.log('CURRENT NUMBER', this.currentNumber);
+    console.log('CURRENT EQUATION', this.currentEquation);
   }
 
   getDecimal(){
@@ -40,16 +79,6 @@ export class DisplayComponent implements OnInit {
     }
   }
 
-  public updateEquation() {
-    console.log('update called');
-    if (this.firstNum == null) {
-      this.currentEquation = '0';
-    } else {
-      this.currentEquation = this.firstNum + this.currentOp + this.secondNum;
-    }
-
-    console.log('CURRENT EQUATION', this.currentEquation);
-  }
 
   private doCalculation(op , secondOp){
 
@@ -65,28 +94,6 @@ export class DisplayComponent implements OnInit {
       case '=':
       return secondOp;
     }
-  }
-
-  public getOperation(op: string){
-    console.log(op);
-
-    if (op != '=') {
-      this.currentOp = op;
-      this.updateEquation();
-    }
-
-    if(this.firstOperand === null){
-      this.firstOperand = Number(this.currentNumber);
-
-    }else if(this.operator){
-      const result = this.doCalculation(this.operator , Number(this.currentNumber))
-      this.currentNumber = String(result);
-      this.firstOperand = result;
-      this.firstNum = result;
-      this.currentEquation = result;
-    }
-    this.operator = op;
-    this.waitForSecondNumber = true;
   }
 
   public clear(){
