@@ -9,52 +9,42 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 export class DisplayComponent implements OnInit {
 
   currentNumber = '0';
-  currentEquation;
-
   firstNum = '0';
   secondNum = '';
   currentOp = '';
+  currentEquation;
 
   firstOperand = null;
   operator = null;
   waitForSecondNumber = false;
-
   firstNumberSelected = true;
 
-  // Create a function to determine if currentOp is being used or not.
-  // Then we can make a function that switches which number variable you're using
-  // by stopping the number when an operation is selected.
+  constructor() { }
 
-  // When operator is selected switch numbers.
-  // Make equal a different type than operator.
+  ngOnInit() {
+    this.currentEquation = this.firstNum + this.currentOp + this.secondNum;
+  }
 
   // Called anytime a number button is pressed.
   public getNumber(value: string){
-    //console.log("GETNUMBER FUNCTION - ", value);
-    if(this.waitForSecondNumber)
-    {
+    if(this.waitForSecondNumber) {
       this.currentNumber = value;
       this.waitForSecondNumber = false;
     } else {
-      // This line adds the values together in a string. So instead of 5+5 it becomes 55.
       this.currentNumber === '0'? this.currentNumber = value: this.currentNumber += value;
     }
+
     this.setNumber();
     this.updateEquation();
   }
 
   // Called anytime a = - * % button is pressed.
   public getOperation(op: string){
-    if (op != '=') {
-      this.firstNumberSelected = false;
-      this.currentOp = op;
-      this.waitForSecondNumber = true;
-      this.updateEquation();
-    } else {
-        this.currentOp = '';
-    }
-    
+    this.currentOp = op;
     this.operator = op;
+    this.firstNumberSelected = false;
+    this.waitForSecondNumber = true;
+    this.updateEquation();
   } 
 
   public setNumber() {
@@ -73,20 +63,18 @@ export class DisplayComponent implements OnInit {
     } else {
       this.currentEquation = this.firstNum + this.currentOp + this.secondNum;
     }
-    console.log('CURRENT EQUATION', this.currentEquation);
-    console.log('CURRENT EQUATION - Current number is: ', this.currentNumber);
-    console.log('CURRENT EQUATION - Current first number is:', this.firstNum);
-    console.log('CURRENT EQUATION - Current second number is:', this.secondNum);
+    console.log(this.currentEquation);
   }
 
   getDecimal(){
     if(!this.currentNumber.includes('.')){
-        this.currentNumber += '.'; 
+        this.currentNumber += '.';
+        this.updateEquation(); 
     }
   }
 
   public solveEquation() {
-    console.log('= pressed');
+    console.log('Solving equation..');
     const result = this.doCalculation(this.operator , Number(this.currentNumber))
     this.currentNumber = result;
     this.firstNum = result;
@@ -99,7 +87,6 @@ export class DisplayComponent implements OnInit {
   }
 
   private doCalculation(op , secondOp){
-    console.log('on docalculation ', this.firstOperand);
     switch (op){
       case '+':
       return this.firstOperand += secondOp; 
@@ -115,20 +102,16 @@ export class DisplayComponent implements OnInit {
   }
 
   public clear(){
+    console.log("Calculator cleared!");
     this.currentNumber = '0';
     this.firstNum = '0';
     this.secondNum = '';
     this.currentOp = '';
     this.firstOperand = null;
     this.operator = null;
+    this.currentEquation = '0';
     this.waitForSecondNumber = false;
     this.firstNumberSelected = true;
-  }
-
-  constructor() { }
-
-  ngOnInit() {
-    this.currentEquation = this.firstNum + this.currentOp + this.secondNum;
   }
 
 }
