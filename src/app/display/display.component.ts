@@ -47,6 +47,7 @@ export class DisplayComponent implements OnInit {
     this.updateEquation();
   } 
 
+  // Seperates the first and second number
   public setNumber() {
     if (this.firstNumberSelected) {
       this.firstNum = this.currentNumber;
@@ -56,7 +57,7 @@ export class DisplayComponent implements OnInit {
     } 
   }
 
-  
+  // Updates the equation for the display
   public updateEquation() {
     if (this.firstNum == null) {
       this.currentEquation = '0';
