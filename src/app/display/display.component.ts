@@ -20,10 +20,18 @@ export class DisplayComponent implements OnInit {
   waitForSecondNumber = false;
   firstNumberSelected = true;
 
+  number = 'test';
+
   constructor(private HistoryStore: HistoryStoreService) { }
 
   ngOnInit() {
     this.currentEquation = this.firstNum + this.currentOp + this.secondNum;
+  }
+
+  recieveMessage($event) {
+    this.currentNumber = $event;
+    this.setNumber();
+    this.updateEquation();
   }
 
   // Called anytime a number button is pressed.

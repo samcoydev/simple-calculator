@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 import { HistoryStoreService } from '../history-store.service';
 
 @Component({
@@ -10,14 +10,17 @@ export class HistoryComponent implements OnInit {
 
   equations = [];
 
+  @Output() messageEvent = new EventEmitter<string>();
+
   constructor(private HistoryService: HistoryStoreService) { }
 
   ngOnInit() {
     this.equations = this.HistoryService.equations;
   }
 
-  public doSomething(message:string) {
-    console.log(message);
+  public doSomething(m:string) {
+    console.log(m);
+    this.messageEvent.emit(m);
   }
 
 }
