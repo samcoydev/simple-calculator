@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HistoryStoreService } from '../history-store.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
@@ -19,7 +20,7 @@ export class DisplayComponent implements OnInit {
   waitForSecondNumber = false;
   firstNumberSelected = true;
 
-  constructor() { }
+  constructor(private HistoryStore: HistoryStoreService) { }
 
   ngOnInit() {
     this.currentEquation = this.firstNum + this.currentOp + this.secondNum;
@@ -76,7 +77,8 @@ export class DisplayComponent implements OnInit {
 
   public solveEquation() {
     console.log('Solving equation..');
-    const result = this.doCalculation(this.operator , Number(this.currentNumber))
+    const result = this.doCalculation(this.operator , Number(this.currentNumber));
+    this.HistoryStore.updateHistory(this.currentEquation + '=' + result);
     this.currentNumber = result;
     this.firstNum = result;
     this.secondNum = '';
