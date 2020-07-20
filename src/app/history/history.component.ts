@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HistoryStoreService } from '../history-store.service';
 
 @Component({
   selector: 'app-history',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistoryComponent implements OnInit {
 
-  constructor() { }
+  equations = [];
+
+  constructor(private HistoryService: HistoryStoreService) { }
 
   ngOnInit() {
+    this.equations = this.HistoryService.equations;
   }
 
 }
