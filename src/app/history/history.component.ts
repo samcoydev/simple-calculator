@@ -16,4 +16,8 @@ export class HistoryComponent implements OnInit {
     this.equations = this.HistoryService.equations;
   }
 
+  public doSomething(message:string) {
+    console.log(message);
+  }
+
 }

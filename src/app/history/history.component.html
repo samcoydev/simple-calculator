@@ -1,5 +1,6 @@
-<ul>
-    <li *ngFor="let equation of equations">
-        {{equation}}
+<ul class="container">
+    <li *ngFor="let equationObj of equations" 
+    (click)="doSomething(equationObj.result)">
+        <span class="badge"> {{equationObj.equation}} </span> {{equationObj.result}}
     </li>
 </ul>

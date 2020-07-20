@@ -7,10 +7,9 @@ export class HistoryStoreService {
 
   equations = [];
 
-  public updateHistory(e: string) {
-    this.equations.push(e);
-
-    console.log(String(this.equations));
+  public updateHistory(equation: string, result:string) {
+    let equationObj = {equation, result};
+    this.equations.push(equationObj);
   }
 
   constructor() { }

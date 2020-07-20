@@ -78,7 +78,7 @@ export class DisplayComponent implements OnInit {
   public solveEquation() {
     console.log('Solving equation..');
     const result = this.doCalculation(this.operator , Number(this.currentNumber));
-    this.HistoryStore.updateHistory(this.currentEquation + '=' + result);
+    this.HistoryStore.updateHistory(this.currentEquation, result);
     this.currentNumber = result;
     this.firstNum = result;
     this.secondNum = '';
